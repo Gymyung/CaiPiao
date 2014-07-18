@@ -11,14 +11,18 @@ import android.util.Xml;
 public class Message {
 	private Header header = new Header();
 	private Body body = new Body();
-	
+	/**
+	 * 序列化协议
+	 */
 	public void serialiserMessage(XmlSerializer serializer){
 		try {
 			serializer.startTag(null, "message");
 			serializer.attribute(null, "version", "1.0");
 			
-			header.serialiserHeader(serializer, "");
-			body.serialiserBody(serializer);
+			header.serialiserHeader(serializer, body.getWholeBody());
+			serializer.startTag(null, "body");
+			serializer.text(body.getBodyDESInfo());
+			serializer.endTag(null, "body");
 			
 			serializer.endTag(null, "message");
 		} catch (Exception e) {
@@ -26,8 +30,15 @@ public class Message {
 		}
 	}
 	
-	
-	public String getXml(){
+	/** 获取请求的xml文件 */
+	public String getXml(Element element){
+		if (element == null) {
+			throw new IllegalArgumentException("element is null");
+		}
+		// 请求标示需要设置，请求内容需要设置
+		header.getTransactiontype().setTagValue(element.getTransactionType());
+		body.getElements().add(element);
+		
 		XmlSerializer xmlSerializer = Xml.newSerializer();
 		StringWriter stringWriter = new StringWriter();
 		

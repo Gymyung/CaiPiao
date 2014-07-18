@@ -15,9 +15,10 @@ import com.g36bk.caipiao.util.ConstantValue;
 public class Header {
 	private Leaf agentid = new Leaf("agentid",ConstantValue.AGENTERID);
 	
-	private Leaf source = new Leaf("source");
-	
-	private Leaf compass = new Leaf("compass");
+	// <source>ivr</source>
+	private Leaf source = new Leaf("source",ConstantValue.SOURCE);
+		// <compress>DES</compress>
+	private Leaf compress = new Leaf("compress",ConstantValue.COMPRESS);
 	
 	private Leaf messagerid = new Leaf("messagerid");
 	
@@ -47,7 +48,7 @@ public class Header {
 
 			agentid.serialiserLeaf(serializer);
 			source.serialiserLeaf(serializer);
-			compass.serialiserLeaf(serializer);
+			compress.serialiserLeaf(serializer);
 			
 			messagerid.serialiserLeaf(serializer);
 			timestamp.serialiserLeaf(serializer);

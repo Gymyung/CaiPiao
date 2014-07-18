@@ -20,7 +20,7 @@ public class Leaf {
 		this.tagValue = tagValue;
 	}
 
-
+	/** 序列化叶子 */
 	public void serialiserLeaf(XmlSerializer serializer){
 		try {
 			serializer.startTag(null, tagName);
